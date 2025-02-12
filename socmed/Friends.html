@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Friend List</title>
+<style>
+body {
+  font-family: sans-serif;
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 1400px;
+    height: 90vh;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    flex-direction: column; 
+}
+
+.top-section{
+    display: flex;
+    width: 90%;
+    padding: 20px;
+    box-sizing: border-box;
+    justify-content: center;
+    margin-top: 40px; /* Increased margin-top */
+}
+
+#search-bar-container {
+  display: flex;
+  width: 60%;
+  margin-bottom: -70px;
+  margin-top: 35px; /* Added margin-top to lower the container */
+}
+
+#search-bar {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+}
+
+#search-button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #4c60af;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.friend-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: 70vh;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0px 0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.friend-item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.friend-details {
+  flex-grow: 1;
+}
+
+.message-button {
+  background-color: #4c60af;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: auto;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sidebar {
+  width: 15%;
+  background-color: #4c60af;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.main-content{
+    display: flex;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="top-section">
+    <div id="search-bar-container">
+      <input type="text" id="search-bar" placeholder="Search friends...">
+      <button id="search-button">Search</button>
+    </div>
+  </div>
+  <div class="main-content">
+  <aside class="sidebar">
+    <h2>My Friends</h2>
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Feed</a></li>
+        <li><a href="Friends.html">Friends</a></li>
+        <li><a href="Explore.html">Explore</a></li>
+        <li><a href="Create.html">Create</a></li>
+        <li><a href="Groups.html">Groups</a></li>
+        <li><a href="Profile.html">Profile</a></li>
+        <li><a href="Settings.html">Settings</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <div id="friend-list-container" class="friend-list">
+    </div>
+  </div>
+</div>
+
+<script>
+const friends = [
+  { name: "Alice", profilePic: "user.jpg", hobby: "Reading", city: "Cubao" },
+  { name: "Bob", profilePic: "user.jpg", hobby: "Coding", city: "BGC" },
+  { name: "Charlie", profilePic: "user.jpg", hobby: "Hiking", city: "BGC" },
+  { name: "David", profilePic: "user.jpg", hobby: "Music", city: "Quezon City" },
+  { name: "Eve", profilePic: "eve.jpg", hobby: "Photography", city: "Tondo" },
+  { name: "Jona", profilePic: "jona.jpg", hobby: "Reading", city: "Caloocan" },
+  { name: "Mallory", profilePic: "mallory.jpg", hobby: "Coding", city: "Quezon City" },
+  { name: "Trent", profilePic: "trent.jpg", hobby: "Hiking", city: "Quezon City" }
+];
+
+const friendListContainer = document.getElementById("friend-list-container");
+const searchBar = document.getElementById("search-bar");
+const searchButton = document.getElementById("search-button");
+
+function displayFriends(filteredFriends) {
+  friendListContainer.innerHTML = ''; 
+  filteredFriends.forEach(friend => {
+    const friendItem = document.createElement("div");
+    friendItem.classList.add("friend-item");
+
+    friendItem.innerHTML = `
+      <img src="${friend.profilePic}" alt="${friend.name}">
+      <div class="friend-details">
+        <h3>${friend.name}</h3>
+        <p>Hobby: ${friend.hobby}</p>
+        <p>City: ${friend.city}</p>
+      </div>
+      <button class="message-button">Message</button>
+    `;
+    friendListContainer.appendChild(friendItem);
+  });
+}
+
+searchButton.addEventListener("click", () => {
+  const searchTerm = searchBar.value.toLowerCase();
+  const filteredFriends = friends.filter(friend => friend.name.toLowerCase().includes(searchTerm));
+  displayFriends(filteredFriends);
+});
+
+searchBar.addEventListener("keydown", (event) => {
+    if (event.key === 'Enter') {
+        const searchTerm = searchBar.value.toLowerCase();
+        const filteredFriends = friends.filter(friend => friend.name.toLowerCase().includes(searchTerm));
+        displayFriends(filteredFriends);
+    }
+});
+
+
+displayFriends(friends); 
+</script>
+
+</body>
+</html>

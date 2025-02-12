@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profile Page</title>
+<style>
+body {
+  font-family: sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  width: 90%;
+  max-width: 1400px;
+  height: 90vh;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 15%;
+  background: #4c60af;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar li:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+.post-info {
+  font-size: smaller;
+  color: #555;
+}
+
+.message-area {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.message-input-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.message-bar {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 13px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.send-button {
+  padding: 8px 15px;
+  background-color: #64b5f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#answerDisplay {
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  width: calc(100% - 22px);
+}
+
+/* Image Grid Styles */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  height: 500px; 
+  overflow-y: auto; 
+}
+
+.image-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Search bar styles */
+.search-bar {
+  display: flex;
+  margin-bottom: 20px; /* Add some spacing below the search bar */
+}
+
+.search-bar input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px; /* Rounded corners on the left */
+  flex-grow: 1; /* Takes up available space */
+}
+
+.search-bar button {
+  padding: 10px 15px;
+  background-color: #64b5f6;
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0; /* Rounded corners on the right */
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+</style>
+</head>
+<body>
+
+<div class="main-container">
+  <div class="sidebar">
+    <h2>EXPLORE</h2>
+    <ul>
+      <li><a href="dashboard.html">Feed</a></li>
+      <li><a href="Friends.html">Friends</a></li>
+      <li><a href="Explore.html">Explore</a></li>
+      <li><a href="Create.html">Create</a></li>
+      <li><a href="Groups.html">Groups</a></li>
+      <li><a href="Profile.html">Profile</a></li>
+      <li><a href="Settings.html">Settings</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <div class="search-bar">
+      <input type="text" placeholder="Search...">
+      <button>Search</button>
+    </div>
+    <div class="image-grid">
+      <img src="user.jpg" alt="Image 1">
+      <img src="user.jpg" alt="Image 2">
+      <img src="user.jpg" alt="Image 3">
+      <img src="user.jpg" alt="Image 4">
+      <img src="user.jpg" alt="Image 5">
+      <img src="user.jpg" alt="Image 6">
+      <img src="user.jpg" alt="Image 7">
+      <img src="user.jpg" alt="Image 8">
+      <img src="user.jpg" alt="Image 9">
+      <img src="user.jpg" alt="Image 10">
+    </div>
+
+   
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+

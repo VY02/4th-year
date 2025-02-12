@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media UI</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f2f5;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .form-container h2 {
+            margin-bottom: 10px;
+            color: #4c60af;
+        }
+        .form-container p {
+            font-size: 14px;
+            color: gray;
+            margin-bottom: 20px;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #4c60af;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .form-container button:hover {
+            background: #3b4d8f;
+        }
+        .form-container a {
+            display: block;
+            margin-top: 10px;
+            color: #4c60af;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .container {
+            display: none;
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIGN UP FORM -->
+    <div class="form-container" id="signupForm">
+        <h2>Create an Account</h2>
+        <input type="text" placeholder="Full Name" id="signupFullName">
+        <input type="text" placeholder="Username" id="signupUsername">
+        <input type="email" placeholder="E-mail" id="signupEmail">
+        <input type="password" placeholder="Password" id="signupPassword">
+        <input type="password" placeholder="Repeat Password" id="signupRepeatPassword">
+        <p>By clicking sign up, you agree to our terms and conditions.</p>
+        <button onclick="signUp()">Sign Up</button>
+        <a onclick="showLoginForm()">Already have an account? Login</a>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div class="form-container" id="loginForm" style="display: none;">
+        <h2>Login</h2>
+        <input type="email" placeholder="E-mail" id="loginEmail">
+        <input type="password" placeholder="Password" id="loginPassword">
+        <button onclick="login()">Login</button>
+        <a onclick="showSignUpForm()">Create an Account</a>
+        <a onclick="forgotPassword()">Forgot Password?</a>
+    </div>
+
+    <!-- MAIN APP -->
+    <div class="container" id="mainApp">
+        <h2>Welcome to Skotial</h2>
+        <p>You are logged in!</p>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function signUp() {
+            let fullName = document.getElementById('signupFullName').value.trim();
+            let username = document.getElementById('signupUsername').value.trim();
+            let email = document.getElementById('signupEmail').value.trim();
+            let password = document.getElementById('signupPassword').value;
+            let repeatPassword = document.getElementById('signupRepeatPassword').value;
+
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!fullName || !username || !email || !password || !repeatPassword) {
+                alert("All fields must be filled.");
+                return;
+            } else if (!emailPattern.test(email)) {
+                alert("Enter a valid email.");
+                return;
+            } else if (password.length < 6) {
+                alert("Password must be at least 6 characters.");
+                return;
+            } else if (password !== repeatPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            let userData = { fullName, username, email, password };
+            localStorage.setItem('user', JSON.stringify(userData));
+
+            alert("Sign-up successful! Please log in.");
+            showLoginForm();
+        }
+
+        function login() {
+            let email = document.getElementById('loginEmail').value.trim();
+            let password = document.getElementById('loginPassword').value;
+
+            let storedUser = JSON.parse(localStorage.getItem('user'));
+
+            if (!storedUser) {
+                alert("No account found. Please sign up first.");
+                return;
+            }
+
+            if (storedUser.email === email && storedUser.password === password) {
+                alert("Login successful!");
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('signupForm').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+            } else {
+                alert("Incorrect email or password.");
+            }
+        }
+
+        function forgotPassword() {
+            let email = prompt("Enter your registered email:");
+            let storedUser = JSON.parse(localStorage.getItem('user'));
+
+            if (!storedUser || storedUser.email !== email) {
+                alert("No account found with this email.");
+                return;
+            }
+
+            let newPassword = prompt("Enter your new password:");
+            if (newPassword.length < 6) {
+                alert("Password must be at least 6 characters.");
+                return;
+            }
+
+            storedUser.password = newPassword;
+            localStorage.setItem('user', JSON.stringify(storedUser));
+            alert("Password reset successful! Please log in.");
+        }
+
+        function showLoginForm() {
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        function showSignUpForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

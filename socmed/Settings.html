@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profile Page</title>
+<style>
+body {
+  font-family: sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  width: 90%;
+  max-width: 1400px;
+  height: 90vh;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 15%;
+  background: #4c60af;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar li:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+.faq-section {
+  margin-bottom: 20px;
+}
+
+.faq-section h3 {
+  margin-bottom: 10px;
+}
+
+.faq-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.faq-list li {
+  margin-bottom: 10px;
+}
+
+.faq-question {
+  cursor: pointer;
+}
+
+.faq-answer {
+  display: none;
+  margin-left: 20px;
+}
+
+.post-info {
+  font-size: smaller;
+  color: #555;
+}
+
+.message-area {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.message-input-button-container { 
+  display: flex;
+  align-items: center; 
+}
+
+.message-bar {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 13px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.send-button {
+  padding: 8px 15px;
+  background-color: #64b5f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#answerDisplay {
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  width: calc(100% - 22px);
+}
+</style>
+</head>
+<body>
+
+<div class="main-container">
+  <div class="sidebar">
+    <h2>SETTINGS</h2>
+    <ul>
+      <li><a href="dashboard.html">Feed</a></li>
+      <li><a href="Friends.html">Friends</a></li>
+      <li><a href="Explore.html">Explore</a></li>
+      <li><a href="Create.html">Create</a></li>
+      <li><a href="Groups.html">Groups</a></li>
+      <li><a href="Profile.html">Profile</a></li>
+      <li><a href="Settings.html">Settings</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <div class="profile-info">
+      </div>
+    <div class="faq-section">
+      <h3>Frequently Asked Questions</h3>
+      <ul class="faq-list">
+        <li>
+          <span class="faq-question" onclick="toggleAnswer(this)">How do I change my profile picture?</span>
+          <div class="faq-answer">Answer: Go to your profile settings and click on the "Change Profile Picture" button. You can then select a new image from your computer.</div>
+        </li>
+        <li>
+          <span class="faq-question" onclick="toggleAnswer(this)">What are the privacy settings?</span>
+          <div class="faq-answer">Answer: Our privacy settings allow you to control who can see your posts, profile information, and more. You can adjust these settings in your account privacy section.</div>
+        </li>
+        <li>
+          <span class="faq-question" onclick="toggleAnswer(this)">How do I report a user?</span>
+          <div class="faq-answer">Answer:  To report a user, go to their profile and look for the 'Report' button (usually three dots or a flag icon). Follow the on-screen instructions to submit your report.</div>
+        </li>
+        <li>
+          <span class="faq-question" onclick="toggleAnswer(this)">How do I delete my account?</span>
+          <div class="faq-answer">Answer: Deleting your account is permanent. To proceed, go to your account settings, find the "Delete Account" option, and follow the verification steps.</div>
+        </li>
+        <li>
+          <span class="faq-question" onclick="toggleAnswer(this)">Where can I find help?</span>
+          <div class="faq-answer">Answer: You can find help in our comprehensive FAQ section or contact our support team via email at support@example.com.</div>
+        </li>
+      </ul>
+    </div>
+    <div class="message-area">
+      <div class="message-input-button-container">
+        <input class="message-bar" type="text" id="userQuestion" placeholder="Ask your question">
+        <button class="send-button" onclick="getAnswer()">Send</button>
+      </div>
+      <div id="answerDisplay"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleAnswer(element) {
+  const answer = element.nextElementSibling;
+  answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+}
+
+const knowledgeBase = {
+  "profile picture": "Go to your profile settings and click on the 'Change Profile Picture' button. You can then select a new image from your computer.",
+  "privacy settings": "Our privacy settings allow you to control who can see your posts, profile information, and more. You can adjust these settings in your account privacy section.",
+  "report user": "To report a user, go to their profile and look for the 'Report' button (usually three dots or a flag icon). Follow the on-screen instructions to submit your report.",
+  "delete account": "Deleting your account is permanent. To proceed, go to your account settings, find the 'Delete Account' option, and follow the verification steps.",
+  "help": "You can find help in our comprehensive FAQ section or contact our support team via email at support@example.com.",
+  "friends": "To add friends, search for their username and send them a friend request.",
+  "posts": "To create a post, click the 'Create Post' button and write your message.",
+  "messages": "Your messages are located in your inbox.  Click on the message icon in the navigation bar.",
+  "how to change my password": "Go to your settings and select the 'Change Password' option. You will be prompted to enter your current password and then create a new one.",
+  "what are the group settings": "Group settings allow you to control who can join your group, what members can post and more. These settings can be found in the group's admin panel."
+};
+
+function getAnswer() {
+  const question = document.getElementById("userQuestion").value.toLowerCase();
+  let answer = "I'm sorry, I don't understand your question.";
+
+  for (const keyword in knowledgeBase) {
+    if (question.includes(keyword)) {
+      answer = knowledgeBase[keyword];
+      break;
+    }
+  }
+
+  document.getElementById("answerDisplay").innerHTML = answer;
+  document.getElementById("userQuestion").value = "";
+}
+</script>
+
+</body>
+</html>
